@@ -1,9 +1,9 @@
 package com.forum.forum.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Topic {
@@ -14,6 +14,10 @@ public class Topic {
 
     @ManyToOne
     Account account;
+
+    @OneToMany(mappedBy = "topic")
+    @JsonIgnore
+    private List<Message> messages;
 
     public Long getId() {
         return id;
@@ -37,5 +41,13 @@ public class Topic {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 }

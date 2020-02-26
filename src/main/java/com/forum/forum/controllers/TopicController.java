@@ -20,16 +20,13 @@ public class TopicController {
     @Autowired
     private MessageRepository messageRepository;
 
-    @GetMapping("/forTopic/{accountId}")
-    public List<Message> getMessageForTopic(@PathVariable("id") Long id) {
-        List<Message> foundMessages = new ArrayList<Message>();
-
-        for (Message message : messageRepository.findAll()) {
-            if (message.getId().equals(id)) {
-                foundMessages.add(message);
-            }
+    @GetMapping("/forTopic/{topicId}")
+    public List<Message> getMessageForTopic(@PathVariable("topicId") Long id) {
+        if(topicRepository.existsById(id)){
+        return topicRepository.getOne(id).getMessages();
+        }else {
+            return null;
         }
-        return foundMessages;
     }
 
     @GetMapping

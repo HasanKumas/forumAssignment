@@ -19,15 +19,11 @@ public class AccountController {
     private MessageRepository messageRepository;
 
     @GetMapping("/forAccount/{accountId}")
-    public List<Message> getMessageForAccount(@PathVariable("id") Long id) {
-        List<Message> foundMessages = new ArrayList<Message>();
-
-        for (Message message : messageRepository.findAll()) {
-            if (message.getId().equals(id)) {
-                foundMessages.add(message);
-            }
-        }
-        return foundMessages;
+    public List<Message> getMessageForAccount(@PathVariable("accountId") Long id) {
+        if(accountRepository.existsById(id)) {
+            return accountRepository.getOne(id).getMessages();
+        }else{
+        return  null;}
     }
 
         @GetMapping
