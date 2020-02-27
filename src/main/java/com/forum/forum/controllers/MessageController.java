@@ -30,7 +30,7 @@ public class MessageController {
     }
 
     @DeleteMapping("/{id}")
-    void deleteMessage(@PathVariable Long id) {
+    public void deleteMessage(@PathVariable Long id) {
         messageRepository.deleteById(id);
     }
 
